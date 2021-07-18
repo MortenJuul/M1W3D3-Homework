@@ -1,60 +1,70 @@
-// Squared number
-function squareNumber(num) {
-    var squaredNumber = num * num;
-    document.getElementById("solution").innerHTML = 'The result of squaring the number ' + num + ' is ' + squaredNumber;
+// Calculation function
+let calc = (type, num1, num2) => {
+  console.log(type + ' ' + num1 + ' ' + num2);
+  let output = '';
+  if (num1 == ""){
+    output = "Please enter a number to calculate";
+  } else if (num1 != "" && num2 == ""){
+    output = "Please enter a second number";
+  } else if ((isNaN(num1) || isNaN(num2)) && num2 == ""){
+    output = "Input invalid - Please enter a valid number";
+  } else {
+    switch (type) {
+      case 'square':
+        output = `The result of squaring the number ${num1} is: ${num1 * num1}`;
+        break;
+      case 'half':
+        output = `The result of halfing the number ${num1} is: ${num1 / 2}`;
+        break;
+      case 'percent':
+        output = `The fraction, ${num1} of the whole, ${num2} is: ${(num1 / num2 *100).toFixed(2)}%`;
+        break;
+      case 'integer':
+        output = `The result of rounding the number ${num1}, to the nearest integer is: ${Math.round(num1)}`;
+        break;
+      case 'area':
+        output = `The area of a circle with the radius of ${num1} is ${(num1 * num1 * Math.PI).toFixed(2)}`;
+        break;
+      default:
+        output = "Something went wrong... try again.";
+        break;
+    }
+  }
+  document.getElementById("solution").innerHTML = output;
 }
-    
+
+// Squared number
 var squareButton = document.getElementById("square-button");
 squareButton.addEventListener("click", function() {
   var num = document.getElementById("square-input").value;
-  squareNumber(num);
+  calc("square", num);
 });
 
 // Halfing number
-function halfNumber(num) {
-  var halfedNumber = num / 2;
-  document.getElementById("solution").innerHTML = 'The result of halfing the number ' + num + ' is ' + halfedNumber;
-}
-  
 var halfButton = document.getElementById("half-button");
 halfButton.addEventListener("click", function() {
 var num = document.getElementById("half-input").value;
-halfNumber(num);
+calc("half", num);
 });
 
 // Percent
-function percentNumber(frac, whole) {
-  var percent = frac / whole * 100;
-  document.getElementById("solution").innerHTML = 'The fraction, ' + frac + ' of the whole, ' + whole + ' is ' + percent.toFixed(2) + '%';
-}
-  
 var percentButton = document.getElementById("percent-button");
 percentButton.addEventListener("click", function() {
 var frac = document.getElementById("percent1-input").value;
 var whole = document.getElementById("percent2-input").value;
-percentNumber(frac, whole);
+calc("percent", frac, whole);
 });
 
 // Integer
-function intNumber(num) {
-  var integerNumber = Math.round(num);
-  document.getElementById("solution").innerHTML = 'The result of rounding the number ' + num + ' to the nearest integer is ' + integerNumber;
-}
-  
 var intButton = document.getElementById("int-button");
 intButton.addEventListener("click", function() {
 var num = document.getElementById("int-input").value;
-intNumber(num);
+calc("integer", num);
 });
 
 // Area of circle
-function areaNumber(num) {
-  var areaNumber = num * num * Math.PI;
-  document.getElementById("solution").innerHTML = 'The area of a circle with the radius of ' + num + ' is ' + areaNumber.toFixed(2);
-}
-  
 var areaButton = document.getElementById("area-button");
 areaButton.addEventListener("click", function() {
 var num = document.getElementById("area-input").value;
-areaNumber(num);
+calc("area", num);
 });
